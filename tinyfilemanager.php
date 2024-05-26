@@ -1310,6 +1310,17 @@ if (is_array($objects) && fm_is_exclude_items($current_path)) {
             $files[] = $file;
         } elseif (@is_dir($new_path) && $file != '.' && $file != '..' && fm_is_exclude_items($file)) {
             $folders[] = $file;
+            // --- ADD index.html file ---
+            $indexFile = $new_path . '/index.html';
+            if (!file_exists($indexFile)) {
+                $newFile = fopen($indexFile, 'w');
+                fwrite($newFile, '<!DOCTYPE html><html><head><title>Index</title></head><body></body></html>');
+                fclose($newFile);
+            }
+            // --- END ADD FILE ---
+        }
+    }
+}
         }
     }
 }
